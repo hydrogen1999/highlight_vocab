@@ -2,64 +2,94 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 20px;
     padding: 0;
-    background-color: #f9f9f9;
-    line-height: 1.6;
+    background-color: #ffe4e6; /* Pastel hồng */
     color: #333;
+    line-height: 1.6;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 15px; /* Bo cong */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #ff6b81; /* Màu hồng đậm */
+    font-family: 'Verdana', sans-serif;
 }
 
 #editor-container {
-    height: 70vh; /* Chiều cao khung là 70% chiều cao màn hình */
-    max-height: 80vh; /* Giới hạn tối đa là 80% chiều cao màn hình */
+    height: 70vh;
+    max-height: 80vh;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #ff6b81; /* Viền hồng đậm */
+    border-radius: 10px; /* Bo cong */
     padding: 10px;
-    font-size: 16px; /* Cỡ chữ mặc định */
+    font-size: 16px;
     font-family: 'Arial', sans-serif;
-    overflow: auto; /* Cho phép cuộn nếu nội dung quá dài */
+    overflow: auto;
+    background-color: #ffecef; /* Pastel hồng nhạt */
 }
 
 button {
     display: inline-block;
-    background-color: #007bff;
+    background-color: #ff6b81;
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px; /* Nút bo tròn */
     cursor: pointer;
     font-size: 16px;
     margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
-}
-
-#result {
-    margin-top: 20px;
-    font-size: 16px; /* Cỡ chữ kết quả */
+    background-color: #e05260; /* Màu tối hơn khi hover */
 }
 
 .options {
     margin-bottom: 20px;
-}
-
-.options label {
-    font-size: 16px;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 select {
-    margin-left: 10px;
-    padding: 5px;
+    padding: 5px 10px;
     font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid #ff6b81;
+    background-color: #ffecef;
+    color: #333;
+}
+
+#reindeer-container {
+    position: fixed;
+    width: 150px;
+    z-index: 1000;
+    animation: move-reindeer 15s linear infinite; /* Tuần lộc chạy quanh màn hình */
+}
+
+@keyframes move-reindeer {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(80vw, 10vh);
+    }
+    50% {
+        transform: translate(70vw, 80vh);
+    }
+    75% {
+        transform: translate(10vw, 70vh);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
 }
