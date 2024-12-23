@@ -1,34 +1,54 @@
-from flask import Flask, request, render_template
-import re
+from flask import Flask, request, render_template, jsonify
 from googletrans import Translator
+import nltk
+from nltk.corpus import wordnet
+import re
 
+# Khởi tạo Flask
 app = Flask(__name__)
 translator = Translator()
 
-def extract_and_translate(text):
-    # Tách từ và loại bỏ dấu câu
-    words = re.findall(r'\b\w+\b', text)
-    unique_words = sorted(set(words))
+# Tải dữ liệu NLTK
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
-    # Dịch từ sang tiếng Việt
-    translations = {word: translator.translate(word, src='en', dest='vi').text for word in unique_words}
-    return translations
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    highlighted_text = ""
+    return render_template('index.html')
+
+@app.route('/highlight', methods=['POST'])
+def highlight():
+    data = request.json
+    text = data.get('text', '')
+    highlighted_words = data.get('highlighted_words', [])
+    show_synonyms = data.get('show_synonyms', False)
+
     translations = {}
+    synonyms = {}
 
-    if request.method == 'POST':
-        text = request.form['text']
-        translations = extract_and_translate(text)
+    for word in highlighted_words:
+        # Dịch nghĩa
+        translations[word] = translator.translate(word, src='en', dest='vi').text
 
-        # Highlight từ trong đoạn văn
-        highlighted_text = text
-        for word in translations.keys():
-            highlighted_text = re.sub(rf'\b{word}\b', f'<span class="highlight">{word}</span>', highlighted_text)
+        # Tìm từ đồng nghĩa nếu checkbox "Hiển thị từ đồng nghĩa" được bật
+        if show_synonyms and wordnet.synsets(word):
+            synonyms[word] = find_synonyms(word)
+        else:
+            synonyms[word] = []
 
-    return render_template('index.html', highlighted_text=highlighted_text, translations=translations)
+    return jsonify({
+        'highlighted_words': highlighted_words,
+        'translations': translations,
+        'synonyms': synonyms
+    })
+
+def find_synonyms(word):
+    """Tìm từ đồng nghĩa cho một từ."""
+    synonyms = set()
+    for syn in wordnet.synsets(word):
+        for lemma in syn.lemmas():
+            synonyms.add(lemma.name())
+    return list(synonyms)
 
 if __name__ == '__main__':
     app.run(debug=True)

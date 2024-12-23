@@ -1,3 +1,4 @@
 Flask
 googletrans==4.0.0-rc1
-Flask-Frozen
+Frozen-Flask
+nltk

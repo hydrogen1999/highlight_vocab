@@ -1,8 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 20px;
     padding: 0;
     background-color: #f9f9f9;
+    line-height: 1.6;
+    color: #333;
 }
 
 .container {
@@ -14,14 +16,16 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-textarea {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 14px;
+#editor-container {
+    height: 70vh; /* Chiều cao khung là 70% chiều cao màn hình */
+    max-height: 80vh; /* Giới hạn tối đa là 80% chiều cao màn hình */
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    padding: 10px;
+    font-size: 16px; /* Cỡ chữ mặc định */
+    font-family: 'Arial', sans-serif;
+    overflow: auto; /* Cho phép cuộn nếu nội dung quá dài */
 }
 
 button {
@@ -33,21 +37,29 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-.highlight {
-    background-color: yellow;
-    font-weight: bold;
-}
-
-.result, .translations {
+#result {
     margin-top: 20px;
+    font-size: 16px; /* Cỡ chữ kết quả */
 }
 
-h1, h2 {
-    color: #333;
+.options {
+    margin-bottom: 20px;
+}
+
+.options label {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+select {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 16px;
 }
